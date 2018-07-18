@@ -3,3 +3,16 @@
   max-height: 500px;
   overflow-y: scroll;
 }
+
+#konf{
+  display: grid;
+  grid-template: repeat(3, 1fr) / repeat(3, 1fr);
+}
+
+#konf>div>div{
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: repeat(auto-fill, 22px);
+  height: 150px;
+  overflow-y: scroll;
+}

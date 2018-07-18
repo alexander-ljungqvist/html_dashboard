@@ -1,4 +1,5 @@
-var time_re = new RegExp("(\d+/\d+/\d+)\s+(\d+:\d+):\d+");
+var roomnames = [];
+var myrooms = {};
 
 function getInfo(addr, sucess) {
   var xhr = new XMLHttpRequest();
@@ -9,6 +10,11 @@ function getInfo(addr, sucess) {
 }
 
 (function(){
+  setInterval(updateDoor(), 5000);
+  setInterval(updateKonf(), 10000);
+})();
+
+function updateDoor() {
   getInfo("http://172.16.119.201:8080", function(request){
       var response = request.currentTarget.response;
       var body = JSON.parse(response);
@@ -26,4 +32,35 @@ function getInfo(addr, sucess) {
       door.events = events.reverse();
     }
   );
-})();
+}
+
+function updateKonf() {
+  roomnames = [];
+  myrooms = {};
+  getInfo("http://172.16.8.230:3000/api/rooms", function(request){
+      var response = request.currentTarget.response;
+      var rooms = JSON.parse(response);
+      for(room of rooms){
+        roomnames.push(room.name);
+        myrooms[room.fullname] = [];
+      }
+    }
+  );
+  setTimeout(function() {
+    for(room of roomnames){
+      getInfo("http://172.16.8.230:3000/api/rooms/"+room+"/events?to="+moment(23, "HH").toISOString(), function(request){
+        var body = JSON.parse(request.currentTarget.response);
+        for (var i = 0; i < body.length; i++) {
+          body[i].timeStart = moment(body[i].timeStart).format("HH:mm")
+          body[i].timeEnd = moment(body[i].timeEnd).format("HH:mm")
+        }
+        if(body.length != 0){
+          myrooms[body[0].room] = body;
+        }
+      });
+    }
+    setTimeout(function(){
+      konf.rooms = myrooms;
+    }, 5000);
+  }, 1000);
+}

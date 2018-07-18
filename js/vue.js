@@ -4,3 +4,10 @@ var door = new Vue({
     events: []
   }
 })
+
+var konf = new Vue({
+  el: '#konf',
+  data: {
+    rooms: {}
+  }
+})
