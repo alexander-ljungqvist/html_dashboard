@@ -11,3 +11,10 @@ var konf = new Vue({
     rooms: {}
   }
 })
+
+var active_users = new Vue({
+  el: '#activeusers',
+  data: {
+      users: []
+  }
+})
