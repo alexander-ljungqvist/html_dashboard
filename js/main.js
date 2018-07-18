@@ -13,7 +13,6 @@ function getInfo(addr, sucess) {
 (function () {
   setInterval(updateDoor(), 5000);
   setInterval(updateKonf(), 10000);
-  setInterval(listActiveUsers(), 10000)
 })();
 
 function updateDoor() {
@@ -66,15 +65,3 @@ function updateKonf() {
     }, 5000);
   }, 1000);
 }
-
-function listActiveUsers() {
-  /**Currently not able to connect to API*/
-  getInfo("https://jsonplaceholder.typicode.com/posts", function (request) {
-    var response = request.currentTarget.response;
-    var jsonUser= JSON.parse(response);
-    for(var i = 0; i<jsonUser.length; i++){
-      userArr.push(jsonUser[i]);
-    }
-    active_users.users = userArr; 
-  });
-} 
