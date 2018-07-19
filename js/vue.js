@@ -1,3 +1,4 @@
+'use strict'
 new Vue({
   el: '#doorev',
   data: {
@@ -23,7 +24,7 @@ new Vue({
           }
           self.events = eventarr.reverse();
         });
-      }, 1000);
+      }, 5000);
 
     },
   },
@@ -70,20 +71,20 @@ new Vue({
   },
   methods: {
     bookings() {
-      roomnames = [];
-      myrooms = {};
-      var self= this;
-      getInfo("http://172.16.8.230:3000/api/rooms", function (request) {
-        var response = request.currentTarget.response;
-        var roomresponse = JSON.parse(response);
-        for (room of roomresponse) {
-          roomnames.push(room.name);
-          myrooms[room.fullname] = [];
-        }
-      });
-      setTimeout(function () {
-        for (room of roomnames) {
-          getInfo("http://172.16.8.230:3000/api/rooms/" + room + "/events?to=" + moment(23, "HH").toISOString(), function (request) {
+      setInterval(() => {
+        var self = this;
+        var roomnames = [];
+        var myrooms = {};
+        getInfo("http://172.16.8.230:3000/api/rooms", function (request) {
+          var response = request.currentTarget.response;
+          var roomresponse = JSON.parse(response);
+          for (var i = 0; i < roomresponse.length; i++) {
+            roomnames.push(roomresponse[i].name);
+            myrooms[roomresponse[i].fullname] = [];
+          }
+     
+        for (var i = 0; i < roomnames.length; i++) {
+          getInfo("http://172.16.8.230:3000/api/rooms/" + roomnames[i] + "/events?to=" + moment(23, "HH").toISOString(), function (request) {
             var body = JSON.parse(request.currentTarget.response);
             for (var i = 0; i < body.length; i++) {
               body[i].timeStart = moment(body[i].timeStart).format("HH:mm")
@@ -92,12 +93,11 @@ new Vue({
             if (body.length != 0) {
               myrooms[body[0].room] = body;
             }
+            self.rooms = myrooms;
           });
         }
-        setTimeout(function () {
-          self.rooms = myrooms;
-        }, 5000);
-      }, 1000);
+      });
+      }, 10000);
     },
   },
   mounted: function () {

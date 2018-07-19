@@ -23,7 +23,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js" charset="utf-8"></script>
 </head>
 
-<body data-spy="scroll" data-target="nav">
+<body data-spy="scroll" data-target="nav" style="padding-top: 50px;">
     <div class="container">
         <div class="row" style="display:grid;grid-template-columns:1fr 1fr;grid-template-rows:540px;grid-template-areas:'log_events active_users';">
             <div class="container" style="grid-area:1 / 1 / 2 / 2;">
@@ -39,14 +39,14 @@
                                     <b id="headline">Tid</b>
                                     <b id="headline">Bokning</b>
                                 </p>
-                                <p v-for="v in value" id="headline">{{ v.timeStart }} - {{ v.timeEnd }} {{ v.subject }}</p>
+                                <p v-for="v in value" id="headline_left">{{ v.timeStart }} - {{ v.timeEnd }} {{ v.subject }}</p>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="col-md-6">
                     <h2 id="headline">
-                        <b>Kamera logg:</b>
+                        <b>Kamera:</b>
                     </h2>
                     <div id="camera_response" style="height:439px">
                         <p id="text_padder">Helvetica mustache squid plaid meh Brooklyn hashtag, retro chillwave YOLO four loko photo booth.
@@ -69,12 +69,7 @@
 
                             <li v-for="e in events">
                                 <span></span>
-                                <div>
-                                    <div class="title">{{ e.Payload.DateTime }} </div>
-                                    <div class="type"> {{ e.Payload.WhoName }}</div>
-                                    <div class="info">{{ e.Payload.Door }}</div>
-                                </div>
-
+                                    <p class="title">{{ e.Payload.DateTime }} <b>{{ e.Payload.WhoName }}</b>  {{ e.Payload.Door }} </p>
                             </li>
 
                         </ul>
