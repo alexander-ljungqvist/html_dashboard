@@ -11,19 +11,19 @@ new Vue({
           var response = request.currentTarget.response;
           var body = JSON.parse(response);
           body = JSON.parse(body.mqtt_body);
-          self.events = [];
+          var eventarr = [];
           var today = moment(1, "HH"); // 01:00 todayƒ
           for (var i = 0; i < body.length; i++) {
             if (body[i].Topic == "Securitas/DoorAccessGranted") {
               var m = moment(body[i].Payload.DateTime, 'YY/MM/DD hh:mm:ss');
               if (m.isAfter(today)) { // remove if object is not today
-                self.events.push(body[i]);
+                eventarr.push(body[i]);
               }
             }
           }
-          self.events = self.events.reverse();
+          self.events = eventarr.reverse();
         });
-      }, 10000);
+      }, 1000);
 
     },
   },

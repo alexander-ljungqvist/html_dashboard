@@ -1,78 +1,105 @@
 <!DOCTYPE html>
 <html lang="en" style="height:100%;">
-    <head>
-        <meta charset="utf-8">
-        <title>Pyramid Dashboard</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="description" content="My new website"/>
-        <!-- Core CSS -->
-        <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
-        <link href="css/font-awesome.min.css" rel="stylesheet">
-        <link href="http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,400,300,600,700" rel="stylesheet">
-        <link href="http://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic" rel="stylesheet">
-        <!-- Style Library -->
-        <link href="css/style-library-1.css" rel="stylesheet">
-        <link href="css/plugins.css" rel="stylesheet">
-        <link href="css/blocks.css" rel="stylesheet">
-        <link href="css/custom.css" rel="stylesheet">
-        <!-- HTML5 shim, for IE6-8 support of HTML5 elements. All other JS at the end of file. -->
-        <script src="js/html5shiv.js"></script>
-        <script src="js/respond.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js" charset="utf-8"></script>
-    </head>
-    <body data-spy="scroll" data-target="nav">
-        <div class="container">
-            <div class="row" style="display:grid;grid-template-columns:1fr 1fr;grid-template-rows:540px;grid-template-areas:'log_events active_users';">
-                <div class="container" style="grid-area:1 / 1 / 2 / 2;">
-                    <div class="col-md-6">
-                        <h2>Mötesrum och bokningar:</h2>
-                        <div id="konf">
-                          <div v-for="(value, key) in rooms">
-                            <h4>{{ key }}</h4>
+
+<head>
+    <meta charset="utf-8">
+    <title>Pyramid Dashboard</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Pyramid Dashboard" />
+    <!-- Core CSS -->
+    <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/font-awesome.min.css" rel="stylesheet">
+    <link href="http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,400,300,600,700" rel="stylesheet">
+    <link href="http://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic" rel="stylesheet">
+    <!-- Style Library -->
+    <link href="css/style-library-1.css" rel="stylesheet">
+    <link href="css/plugins.css" rel="stylesheet">
+    <link href="css/blocks.css" rel="stylesheet">
+    <link href="css/custom.css" rel="stylesheet">
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements. All other JS at the end of file. -->
+    <script src="js/html5shiv.js"></script>
+    <script src="js/respond.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js" charset="utf-8"></script>
+</head>
+
+<body data-spy="scroll" data-target="nav">
+    <div class="container">
+        <div class="row" style="display:grid;grid-template-columns:1fr 1fr;grid-template-rows:540px;grid-template-areas:'log_events active_users';">
+            <div class="container" style="grid-area:1 / 1 / 2 / 2;">
+                <div class="col-md-6">
+                    <h2 id="headline">
+                        <b>Mötesrum och bokningar:</b>
+                    </h2>
+                    <div id="konf">
+                        <div v-for="(value, key) in rooms">
+                            <h4 id="headline_left">{{ key }}</h4>
                             <div>
-                              <p><b>Tid</b> <b>Bokning</b></p>
-                              <p v-for="v in value">{{ v.timeStart }} - {{ v.timeEnd }} {{ v.subject }}</p>
+                                <p>
+                                    <b id="headline">Tid</b>
+                                    <b id="headline">Bokning</b>
+                                </p>
+                                <p v-for="v in value" id="headline">{{ v.timeStart }} - {{ v.timeEnd }} {{ v.subject }}</p>
                             </div>
-                          </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <h2></h2>
-                        <h1>Kamera logg:</h1>
-                        <p>Helvetica mustache squid plaid meh Brooklyn hashtag, retro chillwave YOLO four loko photo booth. Brooklyn kale chips, seitan hella 3 wolf moon slow-carb paleo.</p>
-                        <div class="col-md-8 md-offset-2">
-                            <a href="#" class="thumbnail">
-                                <img src="http://pinegrow.com/placeholders/img16.jpg" alt="">
-                            </a>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="row" style="display:grid;grid-template-columns:1fr 1fr;grid-template-rows:540px;grid-template-areas:'rooms camera';">
-                <div class="container" style="grid-area:1 / 1 / 2 / 2;">
-                    <div class="col-md-6">
-                        <h1>Dörrhändelser</h1>
-                        <div class="row" id="doorev" style="overflow:scroll; height:450px">
-                          <p v-for="e in events">{{ e.Payload.DateTime }} : {{ e.Payload.WhoName }} : {{ e.Payload.Door }}</p>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <h1><b>Aktiva användare</b></h1>
-                        <p>Aktiva användare just nu: visas i format Namn:Plats</p>
-                            <div class="row" id="activeusers" style="overflow:scroll; height:450px" >
-                                <p v-for="u in users" class="col-md-2">
-                                    {{u.id}}: {{u.name}} - {{u.location}}</p>
-                            </div>
+                <div class="col-md-6">
+                    <h2 id="headline">
+                        <b>Kamera logg:</b>
+                    </h2>
+                    <div id="camera_response" style="height:439px">
+                        <p id="text_padder">Helvetica mustache squid plaid meh Brooklyn hashtag, retro chillwave YOLO four loko photo booth.
+                            Brooklyn kale chips, seitan hella 3 wolf moon slow-carb paleo.</p>
+                            <a href="#" class="thumbnail" id="center_component">
+                                <img src="http://pinegrow.com/placeholders/img16.jpg" alt="">
+                            </a>
                     </div>
                 </div>
             </div>
         </div>
-        <script type="text/javascript" src="js/jquery-1.11.1.min.js"></script>
-        <script type="text/javascript" src="js/bootstrap.min.js"></script>
-        <script type="text/javascript" src="js/plugins.js"></script>
-        <script src="https://maps.google.com/maps/api/js?sensor=true"></script>
-        <script type="text/javascript" src="js/bskit-scripts.js"></script>
-        <script src="js/vue.js" charset="utf-8"></script>
-    </body>
+        <div class="row" style="display:grid;grid-template-columns:1fr 1fr;grid-template-rows:540px;grid-template-areas:'rooms camera';">
+            <div class="container" style="grid-area:1 / 1 / 2 / 2;">
+                <div class="col-md-6">
+                    <h2 id="headline">
+                        <b>Dörrhändelser:</b>
+                    </h2>
+                    <div class="row" id="doorev" style="overflow:scroll; height:450px">
+                        <ul id="listed">
+
+                            <li v-for="e in events">
+                                <span></span>
+                                <div>
+                                    <div class="title">{{ e.Payload.DateTime }} </div>
+                                    <div class="type"> {{ e.Payload.WhoName }}</div>
+                                    <div class="info">{{ e.Payload.Door }}</div>
+                                </div>
+
+                            </li>
+
+                        </ul>
+
+                    </div>
+
+                </div>
+                <div class="col-md-6">
+                    <h2 id="headline">
+                        <b>Aktiva användare:</b>
+                    </h2>
+                    <div class="row" id="activeusers" style="overflow:scroll; height:450px">
+                        <p v-for="u in users" class="col-md-2" id="">
+                            {{u.id}}: {{u.name}} - {{u.location}}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript" src="js/jquery-1.11.1.min.js"></script>
+    <script type="text/javascript" src="js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="js/plugins.js"></script>
+    <script src="https://maps.google.com/maps/api/js?sensor=true"></script>
+    <script type="text/javascript" src="js/bskit-scripts.js"></script>
+    <script src="js/vue.js" charset="utf-8"></script>
+</body>
+
 </html>
