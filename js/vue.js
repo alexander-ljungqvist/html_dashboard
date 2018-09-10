@@ -134,8 +134,8 @@ new Vue({
     camera_response_update() {
       setInterval(() => {
         var self = this;
-        getInfo("127.0.0.1:8080/mqtt_response", function(request) {
-          
+        getInfo("127.0.0.1:8081/mqtt_response", function(request) {
+
           var camera_decider = request.currentTarget.response;
           var getProperty = function (propertyName) {
             return camera_array[propertyName];
