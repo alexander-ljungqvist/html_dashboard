@@ -128,13 +128,13 @@ new Vue({
       isMarkedPyr05: false,
       isMarkedPyr06: false,
     },
-    
+
   },
   methods: {
     camera_response_update() {
       setInterval(() => {
         var self = this;
-        getInfo("http://127.0.0.1:8081/mqtt_response", function(request) {
+        getInfo("http://mqtt.statusdashboard.pyramid.se/mqtt/mqtt_response", function(request) {
 
           var camera_decider = request.currentTarget.response;
           var getProperty = function (propertyName) {
@@ -143,7 +143,7 @@ new Vue({
         console.log(self.arrays_.isMarkedPet01)
         var camera = getProperty(camera_decider);
         console.log(camera);
-     
+
         });
       }, 5000);
 
