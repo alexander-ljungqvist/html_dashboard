@@ -136,6 +136,7 @@ new Vue({
         var self = this;
         getInfo("http://mqtt.statusdashboard.pyramid.se/mqtt/mqtt_response", function(request) {
 
+          
           var camera_decider = request.currentTarget.response;
           var getProperty = function (propertyName) {
             return camera_array[propertyName];
