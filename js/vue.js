@@ -114,20 +114,56 @@ new Vue({
 new Vue({
   el: '#camera_response_msg',
   data: {
-    arrays_:{
-      isMarkedPet01: false,
-      isMarkedPet02: false,
-      isMarkedPet03: false,
-      isMarkedPet04: false,
-      isMarkedPet05: false,
-      isMarkedPet06: false,
-      isMarkedPyr01: false,
-      isMarkedPyr02: false,
-      isMarkedPyr03: false,
-      isMarkedPyr04: false,
-      isMarkedPyr05: false,
-      isMarkedPyr06: false,
-    },
+    arrays_:[
+      {
+        name: "isMarkedPet01",
+        state: false
+      },
+      {
+        name: "isMarkedPet02",
+        state: false
+      },
+      {
+        name:"isMarkedPet03",
+        state : false}
+        ,
+      {
+        name:"isMarkedPet04",
+      state : false
+      },
+      {
+        name: "isMarkedPet05",
+        state: false
+      },
+      {
+        name:"isMarkedPet06",
+        state: false
+      },
+      {
+        name:"isMarkedPyr01",
+        state: false
+      },
+      {
+        name:"isMarkedPyr02",
+        state: false
+      },
+      {
+        name: "isMarkedPyr03",
+        state: false
+      },
+      {
+        name: "isMarkedPyr04",
+        state: false
+      },
+      {
+        name:"isMarkedPyr05",
+        state: false
+      },
+      {
+        name: "isMarkedPyr06",
+        state: false
+      }
+    ],
 
   },
   methods: {
@@ -135,15 +171,15 @@ new Vue({
       setInterval(() => {
         var self = this;
         getInfo("http://127.0.0.1:8081/mqtt_response", function(request) {
-
           var camera_decider = request.currentTarget.response;
-          var getProperty = function (propertyName) {
-            return camera_array[propertyName];
-        };
-        console.log(self.arrays_.isMarkedPet01)
-        var camera = getProperty(camera_decider);
-        console.log(camera);
-
+         
+          self.arrays_.forEach(function(element){
+            if(element.name == camera_decider){
+              element.state = true;
+            }else{
+              element.state = false;
+            }
+          });
         });
       }, 5000);
 
