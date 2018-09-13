@@ -1,6 +1,6 @@
 'use strict'
 var camera_array = {
-  //Get all names of the cameras and make changes when something changes.
+  //Get all names of the cameras and make changes when something changes. need more
   PYR01_PyrEntrance :"isMarkedPyr01",
   PYR04_PyramidV1Entrance: "isMarkedPyr04",
   PET01_PetraEntrance: "isMarkedPet01"
@@ -172,7 +172,6 @@ new Vue({
         var self = this;
         getInfo("http://127.0.0.1:8081/mqtt_response", function(request) {
           var camera_decider = request.currentTarget.response;
-         
           self.arrays_.forEach(function(element){
             if(element.name == camera_decider){
               element.state = true;
