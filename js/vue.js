@@ -1,10 +1,53 @@
 'use strict'
-var camera_array = {
-  //Get all names of the cameras and make changes when something changes. need more
-  PYR01_PyrEntrance :"isMarkedPyr01",
-  PYR04_PyramidV1Entrance: "isMarkedPyr04",
-  PET01_PetraEntrance: "isMarkedPet01"
-}
+var camera_array = [
+  {
+    name: "PYR01_PyrEntrance"
+  }
+  ,
+  {
+    name: "PYR03_V1Room1B"
+  }
+  ,
+  {
+    name: "PYR02_V1Room1A"
+  }
+  ,
+  {
+    name: "PYR04_PyramidV1Entrance"
+  }
+  ,
+  {
+    name: "PYR05_V1EmergencyExit"
+  }
+  ,
+  {
+    name: "Pyramid_Corridor"
+  }
+  ,
+  {
+    name: "Pyramid_V1_Entrance_2"
+  }
+  ,
+  {
+    name:"PYR10_V4Hallway"
+  }
+  ,
+  {
+    name:"PET02_Devroom"
+  }
+  ,
+  {
+    name:"PET03_Designroom"
+  }
+  ,
+  {
+    name:"PET01_PetraEntrance"
+  }
+  ,
+  {
+    name:"PYR09_V1ServerRoom"
+  }
+];
 
 new Vue({
   el: '#doorev',
@@ -116,55 +159,54 @@ new Vue({
   data: {
     arrays_:[
       {
-        name: "isMarkedPet01",
+        name: "PYR01_PyrEntrance",
         state: false
       },
       {
-        name: "isMarkedPet02",
+        name: "PYR03_V1Room1B",
         state: false
       },
       {
-        name:"isMarkedPet03",
-        state : false}
-        ,
-      {
-        name:"isMarkedPet04",
-      state : false
-      },
-      {
-        name: "isMarkedPet05",
+        name: "PYR02_V1Room1A",
         state: false
       },
       {
-        name:"isMarkedPet06",
+        name:"PYR04_PyramidV1Entrance",
+        state : false
+      },
+      {
+        name:"PYR05_V1EmergencyExit",
+        state : false
+      },
+      {
+        name: "Pyramid_Corridor",
         state: false
       },
       {
-        name:"isMarkedPyr01",
+        name: "Pyramid_V1_Entrance_2",
         state: false
       },
       {
-        name:"isMarkedPyr02",
+        name: "PYR10_V4Hallway",
         state: false
       },
       {
-        name: "isMarkedPyr03",
+        name:"PET02_Devroom",
         state: false
       },
       {
-        name: "isMarkedPyr04",
+        name: "PET03_Designroom",
         state: false
       },
       {
-        name:"isMarkedPyr05",
+        name: "PET01_PetraEntrance",
         state: false
       },
       {
-        name: "isMarkedPyr06",
+        name:"PYR09_V1ServerRoom",
         state: false
       }
-    ],
-
+    ]
   },
   methods: {
     camera_response_update() {
@@ -175,6 +217,7 @@ new Vue({
           self.arrays_.forEach(function(element){
             if(element.name == camera_decider){
               element.state = true;
+              console.log(element.name);
             }else{
               element.state = false;
             }
