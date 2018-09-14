@@ -212,7 +212,7 @@ new Vue({
     camera_response_update() {
       setInterval(() => {
         var self = this;
-        getInfo("http://127.0.0.1:8081/mqtt_response", function(request) {
+        getInfo("http://172.16.8.230:8081/mqtt_response", function(request) {
           var camera_decider = request.currentTarget.response;
           self.arrays_.forEach(function(element){
             if(element.name == camera_decider){
